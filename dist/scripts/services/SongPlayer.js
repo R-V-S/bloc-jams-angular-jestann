@@ -110,7 +110,6 @@
             }
         };
         
-        // It seems like there is a need to at some point set the initial current song and set the .playing property to be false, otherwise my play and pause buttons both display 
         setSong(currentAlbum.songs[0]);
         
         return SongPlayer;
