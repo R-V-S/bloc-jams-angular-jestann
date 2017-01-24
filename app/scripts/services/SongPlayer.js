@@ -55,11 +55,16 @@
         * @desc Plays the current song using currentBuzzObject and sets the given song object's playing attribute to true
         * @param {Object} song
         */
-        vr playSong = function(song) {
+        var playSong = function(song) {
             currentBuzzObject.play();
             song.playing = true;
             // why diff from above here, and not currentSong.playing? (fixed to be equivalent)
-        }        
+        }
+        
+        var stopSong = function(song) {
+            currentBuzzObject.stop();
+            song.playing = null;
+        }
                 
         /**
         * @function SongPlayer.play
@@ -101,14 +106,26 @@
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(SongPlayer.currentSong);
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
         };
+        
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+            
+            if (currentSongIndex < 0) {
+                stopSong(SongPlayer.currentSong);
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        }
         
         // It seems like there is a need to at some point set the initial current song and set the .playing property to be false, otherwise my play and pause buttons both display 
         setSong(currentAlbum.songs[0]);
