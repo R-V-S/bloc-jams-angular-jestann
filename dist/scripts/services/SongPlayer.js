@@ -73,11 +73,11 @@
         */
         SongPlayer.play = function(song) {
             song = song || SongPlayer.currentSong;
-            if (currentSong !== song) {
+            if (SongPlayer.currentSong !== song) {
                 setSong(song);
                 playSong(song);
             }
-            else if (currentSong === song) {
+            else if (SongPlayer.currentSong === song) {
                 if (currentBuzzObject.isPaused()) {
                     playSong(song);
                     // had only the .play() line and not the song.playing = true line, but I think that's an error, so I used playSong
